@@ -14,7 +14,6 @@ import { AppYearlySalesComponent } from '../../../components/dashboard2/yearly-s
 import { AppPaymentGatewaysComponent } from '../../../components/dashboard2/payment-gateways/payment-gateways.component';
 import { AppRecentTransactionsComponent } from '../../../components/dashboard2/recent-transactions/recent-transactions.component';
 import { AppProductPerformanceComponent } from '../../../components/dashboard2/product-performance/product-performance.component';
-import {AppLineChartComponent} from "../../charts/line/line.component";
 
 @Component({
   selector: 'app-dashboard2',
@@ -33,7 +32,6 @@ import {AppLineChartComponent} from "../../charts/line/line.component";
     AppPaymentGatewaysComponent,
     AppRecentTransactionsComponent,
     AppProductPerformanceComponent,
-    AppLineChartComponent,
   ],
   templateUrl: './dashboard2.component.html',
 })

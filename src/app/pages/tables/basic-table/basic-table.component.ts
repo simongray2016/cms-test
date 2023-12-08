@@ -162,7 +162,7 @@ export interface Element {
 }
 
 const BASIC_DATA: Element[] = [
-  {
+  { 
     imgSrc: 'assets/images/profile/user-1.jpg',
     name: 'Micheal Doe',
     post: 'Web Designer',
@@ -171,7 +171,7 @@ const BASIC_DATA: Element[] = [
     color: 'success',
     budget: '3.9'
    },
-   {
+   { 
     imgSrc: 'assets/images/profile/user-2.jpg',
     name: 'Andrew McDownland',
     post: 'Project Manager',
@@ -180,7 +180,7 @@ const BASIC_DATA: Element[] = [
     color: 'warning',
     budget: '3.9'
    },
-   {
+   { 
     imgSrc: 'assets/images/profile/user-3.jpg',
     name: 'Christopher Jamil',
     post: 'Frontend Engineer',
@@ -189,7 +189,7 @@ const BASIC_DATA: Element[] = [
     color: 'error',
     budget: '3.9'
    },
-   {
+   { 
     imgSrc: 'assets/images/profile/user-4.jpg',
     name: 'Mathew Anderson',
     post: 'Content Writer',
@@ -210,7 +210,7 @@ const BASIC_DATA: Element[] = [
 export class AppBasicTableComponent implements OnInit {
 
   // table 4
-
+  
   displayedColumns4 = ['name', 'pname', 'status', 'budget'];
   dataSource4 = new MatTableDataSource<Element>(BASIC_DATA);
 

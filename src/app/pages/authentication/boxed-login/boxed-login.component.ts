@@ -6,12 +6,12 @@ import { MaterialModule } from '../../../material.module';
 import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-boxed-login',
   standalone: true,
   imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, NgIf],
   templateUrl: './boxed-login.component.html',
 })
-export class AppLoginComponent {
+export class AppBoxedLoginComponent {
   options = this.settings.getOptions();
 
   constructor(private settings: CoreService, private router: Router) {}

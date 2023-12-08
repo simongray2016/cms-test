@@ -7,6 +7,16 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Dashboard',
     iconName: 'aperture',
+    route: '/dashboards/dashboard',
+  },
+  {
+    displayName: 'Analytical',
+    iconName: 'aperture',
+    route: '/dashboards/dashboard1',
+  },
+  {
+    displayName: 'eCommerce',
+    iconName: 'shopping-cart',
     route: '/dashboards/dashboard2',
   },
   {

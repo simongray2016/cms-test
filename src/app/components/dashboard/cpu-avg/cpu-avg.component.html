@@ -1,0 +1,18 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content class="p-t-32">
+    <mat-card-subtitle class="mat-body-1 p-b-4">CPU Avg</mat-card-subtitle>
+    <h5 class="mat-subtitle-1 m-t-4 f-w-600">78,298</h5>
+    <div class="mat-body-1 f-w-600 m-l-12 m-t-16">+9%</div>
+    <apx-chart
+      [series]="projectsChart.series"
+      [chart]="projectsChart.chart"
+      [plotOptions]="projectsChart.plotOptions"
+      [tooltip]="projectsChart.tooltip"
+      [stroke]="projectsChart.stroke"
+      [xaxis]="projectsChart.xaxis"
+      [yaxis]="projectsChart.yaxis"
+      [grid]="projectsChart.grid"
+      [colors]="projectsChart.colors"
+    ></apx-chart>
+  </mat-card-content>
+</mat-card>
