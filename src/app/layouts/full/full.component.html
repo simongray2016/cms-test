@@ -1,0 +1,25 @@
+<mat-sidenav-container class="mainWrapper blue_theme" autosize autoFocus>
+  <mat-sidenav
+    mode="side"
+    opened
+    class="sidebarNav"
+  >
+    <div class="flex flex-col h-full">
+      <app-sidebar></app-sidebar>
+      <ng-scrollbar class="relative" style="height: 100%">
+        <mat-nav-list class="sidebar-list">
+          <app-nav-item
+            *ngFor="let item of navItems"
+            [item]="item"
+          >
+          </app-nav-item>
+        </mat-nav-list>
+      </ng-scrollbar>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="contentWrapper" #content>
+    <main class="pageWrapper">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>
