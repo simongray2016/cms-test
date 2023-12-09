@@ -8,8 +8,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { UserService } from 'src/app/apis/user.service';
 import { MaterialModule } from '../../../material.module';
+import { finalize } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from '../../../services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-side-login',
@@ -28,7 +31,8 @@ export class AppSideLoginComponent {
 
   constructor(
     private router: Router,
-    private userApi: UserService,
+    private userService: UserService,
+    private snackBar: MatSnackBar,
   ) {}
 
   form = new FormGroup({
@@ -45,15 +49,21 @@ export class AppSideLoginComponent {
   submit() {
     this.loading = true;
     this.form.disable();
-    this.userApi.login(this.form.getRawValue()).subscribe({
-      next: (res) => {
-        this.router.navigateByUrl('/dashboards/dashboard');
-      },
-      error: (err) => {},
-      complete: () => {
-        this.loading = false;
-        this.form.enable();
-      }
-    });
+    this.userService
+      .login(this.form.getRawValue())
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+          this.form.enable();
+        }),
+      )
+      .subscribe({
+        next: (res) => {
+          this.router.navigateByUrl('/dashboard');
+        },
+        error: (err: HttpErrorResponse) => {
+          this.snackBar.open(err.error.message || 'Something went wrong');
+        },
+      });
   }
 }

@@ -10,8 +10,38 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboards/dashboard1',
+        redirectTo: '/dashboard',
         pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./pages/dashboard/dashboard.component').then(
+            (m) => m.AppDashboardComponent,
+          ),
+        data: {
+          title: 'Dashboard',
+        },
+      },
+      {
+        path: 'account-management',
+        loadComponent: () =>
+          import(
+            './pages/account-management/account-management.component'
+          ).then((m) => m.AccountManagementComponent),
+        data: {
+          title: 'Account Management',
+        },
+      },
+      {
+        path: 'change-password',
+        loadComponent: () =>
+          import('./pages/change-password/change-password.component').then(
+            (m) => m.ChangePasswordComponent,
+          ),
+        data: {
+          title: 'Change Password',
+        },
       },
       {
         path: 'starter',
@@ -22,14 +52,14 @@ const routes: Routes = [
         path: 'dashboards',
         loadChildren: () =>
           import('./pages/dashboards/dashboards.module').then(
-            (m) => m.DashboardsModule
+            (m) => m.DashboardsModule,
           ),
       },
       {
         path: 'ui-components',
         loadChildren: () =>
           import('./pages/ui-components/ui-components.module').then(
-            (m) => m.UicomponentsModule
+            (m) => m.UicomponentsModule,
           ),
       },
       {
@@ -61,7 +91,7 @@ const routes: Routes = [
         path: 'theme-pages',
         loadChildren: () =>
           import('./pages/theme-pages/theme-pages.module').then(
-            (m) => m.ThemePagesModule
+            (m) => m.ThemePagesModule,
           ),
       },
     ],
@@ -74,14 +104,14 @@ const routes: Routes = [
         path: 'authentication',
         loadChildren: () =>
           import('./pages/authentication/authentication.module').then(
-            (m) => m.AuthenticationModule
+            (m) => m.AuthenticationModule,
           ),
       },
       {
         path: 'landingpage',
         loadChildren: () =>
           import('./pages/theme-pages/landingpage/landingpage.module').then(
-            (m) => m.LandingPageModule
+            (m) => m.LandingPageModule,
           ),
       },
     ],
@@ -93,9 +123,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes),
-  ],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

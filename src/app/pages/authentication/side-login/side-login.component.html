@@ -21,11 +21,12 @@
           <div class="col-lg-9 max-width-form">
             <h4 class="f-w-700 f-s-24 m-0">Welcome to CMS</h4>
             <span class="f-s-14 d-block mat-body-1 m-t-8"
-              >Your Admin Dashboard</span
+            >Your Admin Dashboard</span
             >
             <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
               <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-                >Username</mat-label
+              >Username
+              </mat-label
               >
               <mat-form-field
                 appearance="outline"
@@ -54,7 +55,8 @@
 
               <!-- password -->
               <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block"
-                >Password</mat-label
+              >Password
+              </mat-label
               >
               <mat-form-field
                 appearance="outline"
@@ -84,7 +86,7 @@
                 mat-flat-button
                 color="primary"
                 class="w-100"
-                [disabled]="form.invalid"
+                [disabled]="form.invalid || loading"
               >
                 Sign In
               </button>
