@@ -1,32 +1,59 @@
-import { Component } from '@angular/core';
-import { CoreService } from 'src/app/services/core.service';
-import { FormGroup, FormControl, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
-import { MaterialModule } from '../../../material.module';
 import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { UserService } from 'src/app/apis/user.service';
+import { MaterialModule } from '../../../material.module';
 
 @Component({
   selector: 'app-side-login',
   standalone: true,
-  imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule, NgIf],
+  imports: [
+    RouterModule,
+    MaterialModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgIf,
+  ],
   templateUrl: './side-login.component.html',
 })
 export class AppSideLoginComponent {
-  options = this.settings.getOptions();
+  loading = false;
 
-  constructor(private settings: CoreService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private userApi: UserService,
+  ) {}
 
   form = new FormGroup({
-    uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    password: new FormControl('', [Validators.required]),
+    account: new FormControl('hoang', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    password: new FormControl('12345678', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
   });
 
-  get f() {
-    return this.form.controls;
-  }
-
   submit() {
-    // console.log(this.form.value);
-    this.router.navigate(['/dashboards/dashboard1']);
+    this.loading = true;
+    this.form.disable();
+    this.userApi.login(this.form.getRawValue()).subscribe({
+      next: (res) => {
+        this.router.navigateByUrl('/dashboards/dashboard');
+      },
+      error: (err) => {},
+      complete: () => {
+        this.loading = false;
+        this.form.enable();
+      }
+    });
   }
 }
