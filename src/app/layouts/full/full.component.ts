@@ -1,26 +1,12 @@
-import { Component, ViewEncapsulation } from '@angular/core';
-import { navItems } from './vertical/sidebar/sidebar-data';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
+import { navItems } from './sidebar/sidebar-data';
 import { MaterialModule } from 'src/app/material.module';
 import { CommonModule } from '@angular/common';
-import { SidebarComponent } from './vertical/sidebar/sidebar.component';
 import { TablerIconsModule } from 'angular-tabler-icons';
-import { RouterOutlet } from '@angular/router';
-import { AppNavItemComponent } from './vertical/sidebar/nav-item/nav-item.component';
-
-// for mobile app sidebar
-interface apps {
-  id: number;
-  img: string;
-  title: string;
-  subtitle: string;
-  link: string;
-}
-
-interface quicklinks {
-  id: number;
-  title: string;
-  link: string;
-}
+import { Router, RouterOutlet } from '@angular/router';
+import { AppNavItemComponent } from './sidebar/nav-item/nav-item.component';
+import { UserService } from '../../services/user.service';
+import { NgxPermissionsModule } from 'ngx-permissions';
 
 @Component({
   selector: 'app-full',
@@ -28,17 +14,23 @@ interface quicklinks {
   imports: [
     MaterialModule,
     CommonModule,
-    SidebarComponent,
     TablerIconsModule,
     RouterOutlet,
     AppNavItemComponent,
+    NgxPermissionsModule,
   ],
   templateUrl: './full.component.html',
   styleUrls: [],
   encapsulation: ViewEncapsulation.None,
 })
 export class FullComponent {
+  private router = inject(Router);
+  private userService = inject(UserService);
+  readonly user$ = this.userService.user;
   navItems = navItems;
 
-  logout() {}
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['/login'], { replaceUrl: true });
+  }
 }

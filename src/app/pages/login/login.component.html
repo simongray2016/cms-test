@@ -1,0 +1,90 @@
+<div class="blank-layout-container justify-center">
+  <div class="p-12 flex items-center justify-center h-full w-7/12 bg-blue-100">
+    <img
+      src="/assets/images/backgrounds/login-bg.svg"
+      alt="login"
+      style="max-width: 500px"
+    />
+  </div>
+  <div
+    class="p-8 flex items-center justify-center h-full w-5/12"
+  >
+    <div class="flex items-center justify-center h-full w-full">
+      <div class="w-full max-width-form">
+        <h4 class="font-bold text-2xl m-0">Welcome to CMS</h4>
+        <span class="text-sm block mat-body-1 mt-2"
+        >Your Admin Dashboard</span
+        >
+        <form class="mt-[30px]" [formGroup]="form" (ngSubmit)="submit()">
+          <mat-label class="mat-subtitle-2 text-sm font-semibold mb-3 block"
+          >Username
+          </mat-label
+          >
+          <mat-form-field
+            appearance="outline"
+            class="h-full w-full"
+            color="primary"
+          >
+            <input matInput formControlName="account" />
+            <mat-hint
+              *ngIf="
+                    form.controls.account.touched &&
+                    form.controls.account.invalid
+                  "
+              class="mb-4 error-msg"
+            >
+              <div
+                class="text-error"
+                *ngIf="
+                      form.controls.account.errors &&
+                      form.controls.account.errors['required']
+                    "
+              >
+                Name is required.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+
+          <!-- password -->
+          <mat-label class="mat-subtitle-2 text-sm font-semibold mb-3 block"
+          >Password
+          </mat-label
+          >
+          <mat-form-field
+            appearance="outline"
+            class="h-full w-full"
+            color="primary"
+          >
+            <input matInput type="password" formControlName="password" />
+            <mat-hint
+              *ngIf="
+                    form.controls.password.touched &&
+                    form.controls.password.invalid
+                  "
+              class="mb-4 error-msg"
+            >
+              <div
+                class="text-error"
+                *ngIf="
+                      form.controls.password.errors &&
+                      form.controls.password.errors['required']
+                    "
+              >
+                Password is required.
+              </div>
+            </mat-hint>
+          </mat-form-field>
+          <button
+            mat-flat-button
+            color="primary"
+            class="h-full w-full"
+            [disabled]="form.invalid || loading"
+          >
+            Sign In
+          </button>
+          <!-- input -->
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

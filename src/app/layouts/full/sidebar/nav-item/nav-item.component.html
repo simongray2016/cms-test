@@ -1,0 +1,25 @@
+<a
+  mat-list-item
+  (click)="onItemSelected(item)"
+  [ngClass]="{
+    'mat-toolbar mat-primary activeMenu': item.route
+      ? router.isActive(item.route, true)
+      : false,
+    expanded: expanded,
+    disabled: item.disabled
+  }"
+  class="menu-list-item"
+>
+  <i-tabler
+    class="routeIcon"
+    name="{{ item.iconName }}"
+    matListItemIcon
+  ></i-tabler>
+  <span class="hide-menu">{{ item.displayName }}</span>
+  <span *ngIf="item.chip">
+    <span
+      class="{{ item.chipClass }} px-4 py-1 item-chip font-normal rounded"
+    >{{ item.chipContent }}</span
+    >
+  </span>
+</a>

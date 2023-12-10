@@ -2,3 +2,9 @@ export enum ERole {
   ADMIN = 'ADMIN',
   USER = 'USER',
 }
+
+export enum EPermission {
+  DASHBOARD = 'DASHBOARD',
+  ACCOUNT_MANAGEMENT = 'ACCOUNT_MANAGEMENT',
+  CHANGE_PASSWORD = 'CHANGE_PASSWORD',
+}

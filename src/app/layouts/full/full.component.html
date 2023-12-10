@@ -5,39 +5,37 @@
 >
   <mat-sidenav
     #leftsidenav
-    [mode]="'side'"
+    mode="side"
     opened
     class="sidebarNav"
   >
-    <div class="flex-layout">
-      <app-sidebar></app-sidebar>
+    <div class="flex flex-col pt-5 h-full">
       <mat-nav-list class="sidebar-list">
-        <app-nav-item
-          *ngFor="let item of navItems"
-          [item]="item"
-        >
-        </app-nav-item>
+        <ng-container *ngFor="let item of navItems">
+          <app-nav-item *ngxPermissionsOnly="item.permissions" [item]="item">
+          </app-nav-item>
+        </ng-container>
+
       </mat-nav-list>
-      <div class="p-24 m-t-auto profile-bar">
-        <div class="bg-light-accent d-flex align-items-center rounded p-16">
+      <div class="p-3 mt-auto profile-bar">
+        <div class="bg-blue-200 flex items-center rounded p-4">
           <img
             src="/assets/images/profile/user-1.jpg"
-            class="rounded-circle"
+            class="rounded-full"
             width="40"
           />
-          <div class="m-l-16">
-            <h5 class="mat-subtitle-2 f-w-600">Mathew</h5>
-            <span class="f-s-12">Designer</span>
+          <div class="ml-4">
+            <h5 class="mat-subtitle-2 font-semibold">{{ (user$ | async)?.account }}</h5>
           </div>
-          <div class="m-l-auto">
+          <div class="ml-auto">
             <a
               mat-icon-button
               (click)="logout()"
-              class="d-flex justify-content-center"
+              class="flex justify-center"
             >
               <i-tabler
                 name="power"
-                class="text-primary icon-18 d-flex"
+                class="text-primary icon-18 flex"
               ></i-tabler>
             </a>
           </div>

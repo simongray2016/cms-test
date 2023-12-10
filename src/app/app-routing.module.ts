@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
+import { AuthGuard } from './guards/auth.guard';
+import { NgxPermissionsGuard } from 'ngx-permissions';
+import { EPermission, ERole } from './enums/roles.enum';
 
 const routes: Routes = [
   {
@@ -19,8 +22,12 @@ const routes: Routes = [
           import('./pages/dashboard/dashboard.component').then(
             (m) => m.AppDashboardComponent,
           ),
+        canActivate: [AuthGuard, NgxPermissionsGuard],
         data: {
           title: 'Dashboard',
+          permissions: {
+            only: [ERole.ADMIN, ERole.USER],
+          },
         },
       },
       {
@@ -29,8 +36,12 @@ const routes: Routes = [
           import(
             './pages/account-management/account-management.component'
           ).then((m) => m.AccountManagementComponent),
+        canActivate: [AuthGuard, NgxPermissionsGuard],
         data: {
           title: 'Account Management',
+          permissions: {
+            only: [ERole.ADMIN],
+          },
         },
       },
       {
@@ -39,60 +50,13 @@ const routes: Routes = [
           import('./pages/change-password/change-password.component').then(
             (m) => m.ChangePasswordComponent,
           ),
+        canActivate: [AuthGuard, NgxPermissionsGuard],
         data: {
           title: 'Change Password',
+          permissions: {
+            only: [ERole.ADMIN],
+          },
         },
-      },
-      {
-        path: 'starter',
-        loadChildren: () =>
-          import('./pages/pages.module').then((m) => m.PagesModule),
-      },
-      {
-        path: 'dashboards',
-        loadChildren: () =>
-          import('./pages/dashboards/dashboards.module').then(
-            (m) => m.DashboardsModule,
-          ),
-      },
-      {
-        path: 'ui-components',
-        loadChildren: () =>
-          import('./pages/ui-components/ui-components.module').then(
-            (m) => m.UicomponentsModule,
-          ),
-      },
-      {
-        path: 'forms',
-        loadChildren: () =>
-          import('./pages/forms/forms.module').then((m) => m.FormModule),
-      },
-      {
-        path: 'charts',
-        loadChildren: () =>
-          import('./pages/charts/charts.module').then((m) => m.ChartsModule),
-      },
-      {
-        path: 'apps',
-        loadChildren: () =>
-          import('./pages/apps/apps.module').then((m) => m.AppsModule),
-      },
-      {
-        path: 'widgets',
-        loadChildren: () =>
-          import('./pages/widgets/widgets.module').then((m) => m.WidgetsModule),
-      },
-      {
-        path: 'tables',
-        loadChildren: () =>
-          import('./pages/tables/tables.module').then((m) => m.TablesModule),
-      },
-      {
-        path: 'theme-pages',
-        loadChildren: () =>
-          import('./pages/theme-pages/theme-pages.module').then(
-            (m) => m.ThemePagesModule,
-          ),
       },
     ],
   },
@@ -101,24 +65,23 @@ const routes: Routes = [
     component: BlankComponent,
     children: [
       {
-        path: 'authentication',
-        loadChildren: () =>
-          import('./pages/authentication/authentication.module').then(
-            (m) => m.AuthenticationModule,
-          ),
+        path: 'login',
+        loadComponent: () =>
+          import('./pages/login/login.component').then((m) => m.LoginComponent),
+        data: {
+          title: 'Change Password',
+        },
       },
       {
-        path: 'landingpage',
-        loadChildren: () =>
-          import('./pages/theme-pages/landingpage/landingpage.module').then(
-            (m) => m.LandingPageModule,
-          ),
+        path: 'error',
+        loadComponent: () =>
+          import('./pages/error/error.component').then((m) => m.ErrorComponent),
       },
     ],
   },
   {
     path: '**',
-    redirectTo: 'authentication/error',
+    redirectTo: 'error',
   },
 ];
 

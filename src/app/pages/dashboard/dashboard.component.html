@@ -1,57 +1,55 @@
-<div class="row">
-  <div class="col-2" *ngFor="let item of dataOverview">
-    <mat-card class="cardWithShadow bg-light-primary"
-              [class.bg-light-primary]="itemSelected.value?.dataType === item.dataType"
-              (click)="itemSelected.setValue(item)"
-    >
-      <mat-card-header class="align-items-start gap-5">
-        <mat-card-title class="mat-body-1">{{ item.title }}</mat-card-title>
-        <mat-icon class="flex-shrink-0 m-l-auto" color="primary">check_circle</mat-icon>
-      </mat-card-header>
-      <mat-card-content class="p-t-10">
-        <ng-container [ngSwitch]="true">
-          <ng-container
-            *ngSwitchCase="item.dataType === DataType.totalRequests || item.dataType === DataType.totalErrors">
-            <h5 class="mat-subtitle-1 m-t-4 f-w-600">{{ item.value | number :'1.0-2' }}</h5>
-            <div class="mat-body-1 f-w-600 m-t-10">+{{ item.percent | number :'1.0-2' }}%</div>
-          </ng-container>
-          <ng-container
-            *ngSwitchCase="item.dataType === DataType.cpuAvg || item.dataType === DataType.gpuAvg || item.dataType === DataType.ramAvg">
-            <h5 class="mat-subtitle-1 m-t-4 f-w-600">{{ item.value | number :'1.0-2' }} %</h5>
-            <div class="mat-body-1 f-w-600 m-t-10">{{ item.min | number :'1.0-2' }}% min</div>
-            <div class="mat-body-1 f-w-600 m-t-10">{{ item.max | number :'1.0-2' }}% max</div>
-          </ng-container>
-          <ng-container
-            *ngSwitchCase="item.dataType === DataType.system">
-            <h5 class="mat-body-1 m-t-4 f-w-600">Worker: {{ item.worker | number :'1.0-2' }}</h5>
-            <div class="mat-body-1 f-w-600 m-t-10">Process: {{ item.process | number :'1.0-2' }}</div>
-          </ng-container>
+<div class="grid grid-cols-6 gap-6 items-stretch">
+  <mat-card *ngFor="let item of dataOverview" class="cardWithShadow"
+            [class.bg-blue-200]="itemSelected.value?.dataType === item.dataType"
+            (click)="itemSelected.setValue(item)"
+  >
+    <mat-card-header class="items-start gap-5">
+      <mat-card-title class="!text-sm !font-normal">{{ item.title }}</mat-card-title>
+      <mat-icon class="shrink-0 m-l-auto" color="primary">check_circle</mat-icon>
+    </mat-card-header>
+    <mat-card-content class="!flex flex-col pt-2.5 h-full">
+      <div class="grow" [ngSwitch]="true">
+        <ng-container
+          *ngSwitchCase="item.dataType === DataType.totalRequests || item.dataType === DataType.totalErrors">
+          <h5 class="text-xl mt-1 font-semibold">{{ item.value | number :'1.0-2' }}</h5>
+          <div class="text-sm font-semibold mt-2.5">+{{ item.percent | number :'1.0-2' }}%</div>
         </ng-container>
-        <apx-chart
-          #barChart
-          [series]="item.series"
-          [chart]="overviewChart.chart"
-          [plotOptions]="overviewChart.plotOptions"
-          [tooltip]="overviewChart.tooltip"
-          [stroke]="overviewChart.stroke"
-          [xaxis]="overviewChart.xaxis"
-          [yaxis]="item.yaxis"
-          [grid]="overviewChart.grid"
-          [colors]="overviewChart.colors"
-          [autoUpdateSeries]="true"
-        ></apx-chart>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <div class="col-12">
+        <ng-container
+          *ngSwitchCase="item.dataType === DataType.cpuAvg || item.dataType === DataType.gpuAvg || item.dataType === DataType.ramAvg">
+          <h5 class="text-xl mt-1 font-semibold">{{ item.value | number :'1.0-2' }} %</h5>
+          <div class="text-sm font-semibold mt-2.5">{{ item.min | number :'1.0-2' }}% min</div>
+          <div class="text-sm font-semibold mt-2.5">{{ item.max | number :'1.0-2' }}% max</div>
+        </ng-container>
+        <ng-container
+          *ngSwitchCase="item.dataType === DataType.system">
+          <h5 class="text-sm mt-1 font-semibold">Worker: {{ item.worker | number :'1.0-2' }}</h5>
+          <div class="text-sm font-semibold mt-2.5">Process: {{ item.process | number :'1.0-2' }}</div>
+        </ng-container>
+      </div>
+      <apx-chart
+        #barChart
+        [series]="item.series"
+        [chart]="overviewChart.chart"
+        [plotOptions]="overviewChart.plotOptions"
+        [tooltip]="overviewChart.tooltip"
+        [stroke]="overviewChart.stroke"
+        [xaxis]="overviewChart.xaxis"
+        [yaxis]="item.yaxis"
+        [grid]="overviewChart.grid"
+        [colors]="overviewChart.colors"
+        [autoUpdateSeries]="true"
+      ></apx-chart>
+    </mat-card-content>
+  </mat-card>
+  <div class="col-span-6">
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
     <mat-card class="cardWithShadow">
       <mat-card-header>
-        <div class="d-flex w-100">
+        <div class="flex items-center w-full">
           <div>
             <mat-card-title>{{ itemSelected.value?.detailTitle || itemSelected.value?.title }}</mat-card-title>
           </div>
-          <div class="d-flex gap-10 m-l-auto" [formGroup]="form">
+          <div class="flex gap-2.5 ml-auto" [formGroup]="form">
             <mat-form-field class="theme-date-range-picker" appearance="outline">
               <mat-date-range-input
                 [rangePicker]="dateRangePicker"
