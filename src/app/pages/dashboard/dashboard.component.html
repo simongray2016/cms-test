@@ -1,11 +1,15 @@
 <div class="grid grid-cols-6 gap-6 items-stretch">
   <mat-card *ngFor="let item of dataOverview" class="cardWithShadow"
-            [class.bg-blue-200]="itemSelected.value?.dataType === item.dataType"
+            [class.!bg-blue-200]="itemSelected.value?.dataType === item.dataType"
             (click)="itemSelected.setValue(item)"
   >
     <mat-card-header class="items-start gap-5">
       <mat-card-title class="!text-sm !font-normal">{{ item.title }}</mat-card-title>
-      <mat-icon class="shrink-0 m-l-auto" color="primary">check_circle</mat-icon>
+      <div class="w-6 h-6 flex items-center shrink-0 ml-auto">
+        <mat-icon *ngIf="itemSelected.value?.dataType === item.dataType" color="primary">
+          check_circle
+        </mat-icon>
+      </div>
     </mat-card-header>
     <mat-card-content class="!flex flex-col pt-2.5 h-full">
       <div class="grow" [ngSwitch]="true">
