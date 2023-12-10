@@ -495,69 +495,69 @@ export class AppDashboardComponent implements OnInit, OnDestroy {
       )
       .subscribe((res) => {
         this.dataOverview.forEach((item, index) => {
-          item.value = Math.floor(Math.random() * 200) + 1;
-          item.percent = Math.floor(Math.random() * 100) + 1;
-          if (item.series[0].data.length) {
-            const data = item.series[0].data;
-            data.splice(0, 1);
-            data.push((Math.floor(Math.random() * 200) + 1) as any);
-            item.series = [
-              {
-                data,
-              },
-            ];
-          } else {
-            const data = Array.from(
-              { length: 8 },
-              (value, index) => Math.floor(Math.random() * 100) + 1,
-            );
-            item.series = [
-              {
-                data,
-              },
-            ];
-          }
-          // switch (item.dataType) {
-          //   case DataType.totalRequests:
-          //     item.value = res.totalRequest.totalRequest;
-          //     item.percent = res.totalRequest.percent;
-          //     item.series = [
-          //       { data: res.historiesRequest.map((i) => i.totalRequest) },
-          //     ];
-          //     break;
-          //   case DataType.totalErrors:
-          //     item.value = res.totalError.totalRequest;
-          //     item.percent = res.totalRequest.percent;
-          //     item.series = [
-          //       { data: res.historiesErrors.map((i) => i.totalRequest) },
-          //     ];
-          //     break;
-          //   case DataType.cpuAvg:
-          //     item.value = res.cpu.avg;
-          //     item.min = res.cpu.min;
-          //     item.max = res.cpu.max;
-          //     item.series = [{ data: res.historiesCpu.map((i) => i.avg) }];
-          //     break;
-          //   case DataType.gpuAvg:
-          //     item.value = res.gpu.avg;
-          //     item.min = res.gpu.min;
-          //     item.max = res.gpu.max;
-          //     item.series = [{ data: res.historiesGpu.map((i) => i.avg) }];
-          //     break;
-          //   case DataType.ramAvg:
-          //     item.value = res.ram.avg;
-          //     item.min = res.ram.min;
-          //     item.max = res.ram.max;
-          //     item.series = [{ data: res.historiesRam.map((i) => i.avg) }];
-          //     break;
-          //   case DataType.system:
-          //     item.process = res.system.process;
-          //     item.worker = res.system.worker;
-          //     item.series = [
-          //       { data: res.historiesSystem.map((i) => i.process) },
-          //     ];
-          //     break;
+          // item.value = Math.floor(Math.random() * 200) + 1;
+          // item.percent = Math.floor(Math.random() * 100) + 1;
+          // if (item.series[0].data.length) {
+          //   const data = item.series[0].data;
+          //   data.splice(0, 1);
+          //   data.push((Math.floor(Math.random() * 200) + 1) as any);
+          //   item.series = [
+          //     {
+          //       data,
+          //     },
+          //   ];
+          // } else {
+          //   const data = Array.from(
+          //     { length: 8 },
+          //     (value, index) => Math.floor(Math.random() * 100) + 1,
+          //   );
+          //   item.series = [
+          //     {
+          //       data,
+          //     },
+          //   ];
           // }
+          switch (item.dataType) {
+            case DataType.totalRequests:
+              item.value = res.totalRequest.totalRequest;
+              item.percent = res.totalRequest.percent;
+              item.series = [
+                { data: res.historiesRequest.map((i) => i.totalRequest) },
+              ];
+              break;
+            case DataType.totalErrors:
+              item.value = res.totalError.totalRequest;
+              item.percent = res.totalRequest.percent;
+              item.series = [
+                { data: res.historiesErrors.map((i) => i.totalRequest) },
+              ];
+              break;
+            case DataType.cpuAvg:
+              item.value = res.cpu.avg;
+              item.min = res.cpu.min;
+              item.max = res.cpu.max;
+              item.series = [{ data: res.historiesCpu.map((i) => i.avg) }];
+              break;
+            case DataType.gpuAvg:
+              item.value = res.gpu.avg;
+              item.min = res.gpu.min;
+              item.max = res.gpu.max;
+              item.series = [{ data: res.historiesGpu.map((i) => i.avg) }];
+              break;
+            case DataType.ramAvg:
+              item.value = res.ram.avg;
+              item.min = res.ram.min;
+              item.max = res.ram.max;
+              item.series = [{ data: res.historiesRam.map((i) => i.avg) }];
+              break;
+            case DataType.system:
+              item.process = res.system.process;
+              item.worker = res.system.worker;
+              item.series = [
+                { data: res.historiesSystem.map((i) => i.process) },
+              ];
+              break;
+          }
         });
       });
   }
